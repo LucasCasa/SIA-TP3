@@ -32,6 +32,7 @@ public class Evolver {
             //TODO: LOS CRUZO
             //TODO: LOS AGREGO A LA POBLACION
             //TODO: MUTO
+            //TODO: SELECIONO UNA PARTE DE LA POBLACION
             //TODO: ME FIJO SI SE LLEGO A ALGO LINDO
 
         }
