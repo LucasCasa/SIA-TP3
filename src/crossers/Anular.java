@@ -1,6 +1,6 @@
 package crossers;
 
-import ar.edu.itba.sia.Archer;
+import characters.Archer;
 import ar.edu.itba.sia.Constants;
 import interfaces.Crosser;
 import interfaces.Phenotype;
@@ -15,8 +15,8 @@ public class Anular implements Crosser {
     @Override
     public Phenotype[] crossover(Phenotype p1, Phenotype p2) {
         Phenotype[] children = new Phenotype[2];
-        children[0] = new Archer();
-        children[1] = new Archer();
+        children[0] = new Archer((p1.getHeight()+p2.getHeight())/2);
+        children[1] = new Archer((p1.getHeight()+p2.getHeight())/2);
         int rand = r.nextInt(Constants.CHROMOSOME_COUNT);
         int l = r.nextInt(Constants.CHROMOSOME_COUNT / 2) + 1;
         if(rand + l > Constants.CHROMOSOME_COUNT) {

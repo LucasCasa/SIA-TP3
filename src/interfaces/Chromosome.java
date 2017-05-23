@@ -5,4 +5,5 @@ package interfaces;
  */
 public interface Chromosome {
     void setAtPos(int j, double v);
+    double getAtPos(int j);
 }

@@ -1,12 +1,10 @@
 package ar.edu.itba.sia;
 
+import characters.Archer;
 import interfaces.Crosser;
-import interfaces.Mutator;
 import interfaces.Phenotype;
 import interfaces.Selector;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -14,46 +12,68 @@ import java.util.Random;
  */
 public class Evolver {
     Crosser cruze;
-    Mutator mutator;
     Selector selector;
     Random rand = new Random();
+    int N;
     int k;
     Phenotype[] currentGeneration;
 
-    public Evolver(Crosser c,Mutator m,Selector s,int k){
+    public Evolver(Crosser c,Selector s,int N, int k){
         this.cruze = c;
-        this.mutator = m;
         this.selector = s;
+        this.N = N;
         this.k = k;
     }
 
-    public void randomGeneration(int count){
-        currentGeneration = new Phenotype[count];
-        k = count;
-        //BLA BLA BLA
+    public void randomGeneration(){
+        currentGeneration = new Phenotype[N];
+        for(int i=0; i<N; i++){
+            currentGeneration[i] = new Archer(new int[]{rand.nextInt(Constants.ALELO_COUNT),rand.nextInt(Constants.ALELO_COUNT),
+                    rand.nextInt(Constants.ALELO_COUNT),rand.nextInt(Constants.ALELO_COUNT),rand.nextInt(Constants.ALELO_COUNT)},Math.random()*0.7+1.3);
+        }
     }
 
     public Phenotype evolve(){
         if(currentGeneration == null){
-            throw new RuntimeException("No hay fenotipos para evolucionar");
+            throw new RuntimeException("No phenotypes to evolve");
         }
-        while(true) { //COMO TERMINA?
+        int counter = 0;
+        printFitness(currentGeneration);
+        while(counter<500) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selector.selectPhenotypes(currentGeneration,k);
             //LOS CRUZO
             Phenotype[] newPop = new Phenotype[k];
             for(int i = 0; i<k; i++){
                 Phenotype[] aux = cruze.crossover(selected[rand.nextInt(k)],selected[rand.nextInt(k)]);
-                newPop[i++] = aux[0].mutate();
-                newPop[i] = aux[1].mutate();
+                if(Math.random() > 0.5) {
+                    newPop[i++] = aux[0].mutate();
+                    newPop[i] = aux[1].mutate();
+                }else{
+                    newPop[i++] = aux[0];
+                    newPop[i] = aux[1];
+                }
             }
             //LOS AGREGO A LA POBLACION
             currentGeneration = newPop;
 
             //TODO: SELECIONO UNA PARTE DE LA POBLACION
             //TODO: ME FIJO SI SE LLEGO A ALGO LINDO
-
+            counter++;
         }
+        printFitness(currentGeneration);
+        return null;
+    }
+
+    private void printFitness(Phenotype[] pop){
+        double total = 0;
+        for(Phenotype p: pop){
+            double fit = p.getFitness();
+            total += fit;
+            System.out.print(fit + " | ");
+        }
+        System.out.println("");
+        System.out.println("Avg: " + total/(double)pop.length);
     }
 
 }

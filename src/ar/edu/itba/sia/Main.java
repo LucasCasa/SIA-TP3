@@ -1,6 +1,8 @@
 package ar.edu.itba.sia;
 
 import interfaces.Chromosome;
+import interfaces.Crosser;
+import interfaces.Selector;
 
 import java.io.IOException;
 
@@ -17,6 +19,15 @@ public class Main {
             Chromosome[][] c = DataLoader.loadData();
             Constants.VALUES = c;
             System.out.println(System.currentTimeMillis() - time);
+
+            Crosser crosser = Config.getInstance().getCrosser();
+            Selector selector = Config.getInstance().getSelector();
+            int N = Integer.parseInt(Config.getInstance().getProperty("N"));
+            int k = Integer.parseInt(Config.getInstance().getProperty("k"));
+
+            Evolver e = new Evolver(crosser,selector,N,k);
+            e.randomGeneration();
+            e.evolve();
         } catch (IOException e) {
             e.printStackTrace();
         }

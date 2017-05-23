@@ -14,7 +14,7 @@ public class DataLoader {
 
 
     static Chromosome[][] loadData() throws IOException{
-        Chromosome[][] values = new Chromosome[5][100000];
+        Chromosome[][] values = new Chromosome[5][Constants.ALELO_COUNT];
         load(values,0,"armas.tsv");
         load(values,1,"botas.tsv");
         load(values,2,"cascos.tsv");
@@ -26,9 +26,9 @@ public class DataLoader {
         Scanner s = new Scanner(new File(filename));
         s.useLocale(Locale.US);
         s.nextLine();
-        for(int i = 0; i<100000;i++){
+        for(int i = 0; i<Constants.ALELO_COUNT;i++){
             s.nextInt();
-            Chromosome cloth = new Cloth();
+            Chromosome cloth = new Clothes();
             for(int j = 0; j<5;j++){
                  cloth.setAtPos(j,s.nextDouble());
             }
