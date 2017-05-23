@@ -9,4 +9,6 @@ public interface Phenotype {
     Chromosome getChromosomeAtLocus(int pos);
     void setChromosomeAtLocus(Chromosome c, int pos);
     int getLocusCount();
+
+    Phenotype mutate();
 }

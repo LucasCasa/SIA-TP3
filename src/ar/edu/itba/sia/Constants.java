@@ -7,5 +7,6 @@ import interfaces.Chromosome;
  */
 public class Constants {
     public final static int CHROMOSOME_COUNT = 5;
+    public static final int ALELO_COUNT = 1000000;
     public static Chromosome[][] VALUES;
 }

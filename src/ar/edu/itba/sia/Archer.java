@@ -37,4 +37,11 @@ public class Archer implements Phenotype{
     public int getLocusCount() {
         return 0;
     }
+
+    @Override
+    public Phenotype mutate() {
+        int mut = (int)(Math.random()*Constants.CHROMOSOME_COUNT);
+        chromosomes[mut] = (int)(Math.random()*Constants.ALELO_COUNT);
+        return this;
+    }
 }
