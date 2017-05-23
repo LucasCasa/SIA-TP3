@@ -1,5 +1,7 @@
 package ar.edu.itba.sia;
 
+import interfaces.Chromosome;
+
 import java.io.IOException;
 
 /**
@@ -11,7 +13,7 @@ public class Main {
         // CARGO TODOS LOS DATOS DEL ARCHIVO
         try {
             long time = System.currentTimeMillis();
-            double [][][] c = DataLoader.loadData();
+            Chromosome[][] c = DataLoader.loadData();
             Constants.VALUES = c;
             System.out.println(System.currentTimeMillis() - time);
         } catch (IOException e) {
