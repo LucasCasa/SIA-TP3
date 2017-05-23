@@ -8,7 +8,7 @@ import interfaces.Selector;
  */
 public class Ranking implements Selector {
     @Override
-    public Phenotype selectPhenotype(Phenotype[] population) {
+    public Phenotype[] selectPhenotypes(Phenotype[] population, int k) {
         return null;
     }
 }

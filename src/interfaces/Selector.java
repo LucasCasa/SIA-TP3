@@ -5,5 +5,5 @@ package interfaces;
  */
 public interface Selector {
 
-    Phenotype selectPhenotype(Phenotype[] population);
+    Phenotype[] selectPhenotypes(Phenotype[] population, int k);
 }

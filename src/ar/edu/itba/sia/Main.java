@@ -10,8 +10,9 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        // CARGO TODOS LOS DATOS DEL ARCHIVO
+
         try {
+            Config.getInstance().loadConfig("config.properties");
             long time = System.currentTimeMillis();
             Chromosome[][] c = DataLoader.loadData();
             Constants.VALUES = c;
