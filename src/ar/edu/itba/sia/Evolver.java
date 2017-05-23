@@ -1,3 +1,5 @@
+package ar.edu.itba.sia;
+
 import interfaces.Crosser;
 import interfaces.Mutator;
 import interfaces.Phenotype;
@@ -28,6 +30,7 @@ public class Evolver {
             throw new RuntimeException("No hay fenotipos para evolucionar");
         }
         while(true) { //COMO TERMINA?
+
             //TODO: ELIJO CANDIDATOS
             //TODO: LOS CRUZO
             //TODO: LOS AGREGO A LA POBLACION

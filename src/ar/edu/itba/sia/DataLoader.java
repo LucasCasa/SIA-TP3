@@ -1,3 +1,7 @@
+package ar.edu.itba.sia;
+
+import interfaces.Chromosome;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
@@ -9,8 +13,8 @@ import java.util.Scanner;
 public class DataLoader {
 
 
-    static double[][][] loadData() throws IOException{
-        double[][][] values = new double[5][100000][5];
+    static Chromosome[][] loadData() throws IOException{
+        Chromosome[][] values = new Chromosome[5][100000];
         load(values,0,"armas.tsv");
         load(values,1,"botas.tsv");
         load(values,2,"cascos.tsv");
@@ -18,15 +22,17 @@ public class DataLoader {
         load(values,4,"pecheras.tsv");
         return values;
     }
-    private static void load(double[][][] data, int p, String filename) throws IOException{
+    private static void load(Chromosome[][] data, int p, String filename) throws IOException{
         Scanner s = new Scanner(new File(filename));
         s.useLocale(Locale.US);
         s.nextLine();
         for(int i = 0; i<100000;i++){
             s.nextInt();
+            Chromosome cloth = new Cloth();
             for(int j = 0; j<5;j++){
-                data[p][i][j] = s.nextDouble();
+                 cloth.setAtPos(j,s.nextDouble());
             }
+            data[p][i] = cloth;
         }
     }
 }

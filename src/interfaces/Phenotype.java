@@ -6,6 +6,7 @@ package interfaces;
 public interface Phenotype {
 
     double getFitness();
-    Chromosome getChromosomeAtLocus();
-    double getLocusCount();
+    Chromosome getChromosomeAtLocus(int pos);
+    void setChromosomeAtLocus(Chromosome c, int pos);
+    int getLocusCount();
 }

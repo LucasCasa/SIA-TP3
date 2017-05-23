@@ -1,3 +1,5 @@
+package ar.edu.itba.sia;
+
 import java.io.IOException;
 
 /**
@@ -10,6 +12,7 @@ public class Main {
         try {
             long time = System.currentTimeMillis();
             double [][][] c = DataLoader.loadData();
+            Constants.VALUES = c;
             System.out.println(System.currentTimeMillis() - time);
         } catch (IOException e) {
             e.printStackTrace();
