@@ -40,7 +40,7 @@ public class Ranking implements Selector {
         int numerator = 0;
         for(Phenotype p: q){
             numerator += counter;
-            System.out.println((double)numerator/(double)sum);
+            //System.out.println((double)numerator/(double)sum);
             if(rand<=(double)numerator/(double)sum)
                 return p;
             counter--;

@@ -16,8 +16,7 @@ public class Main {
         try {
             Config.getInstance().loadConfig("config.properties");
             long time = System.currentTimeMillis();
-            Chromosome[][] c = DataLoader.loadData();
-            Constants.VALUES = c;
+            DataLoader.loadData();
             System.out.println(System.currentTimeMillis() - time);
 
             Crosser crosser = Config.getInstance().getCrosser();

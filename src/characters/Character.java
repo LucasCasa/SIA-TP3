@@ -47,7 +47,7 @@ public abstract class Character  implements Phenotype {
         if(mut == 0){
             chromosomes[0] = new Height(Math.random()*0.7 + 1.3);
         }else{
-            chromosomes[mut] = Constants.VALUES[mut-1][(int)(Math.random()*Constants.ALELO_COUNT)];
+            chromosomes[mut] = Constants.VALUES.get(mut-1,(int)(Math.random()*Constants.ALELO_COUNT));
         }
 
         return this;

@@ -2,11 +2,15 @@ package ar.edu.itba.sia;
 
 import interfaces.Chromosome;
 
+import java.io.Serializable;
+
 /**
  * Created by lcasagrande on 24/05/17.
  */
-public class Height implements Chromosome {
+public class Height implements Chromosome,Serializable {
     private double height;
+    private static final long serialVersionUID = 1L;
+
     public Height(double height){
         this.height = height;
     }

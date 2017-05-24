@@ -16,8 +16,8 @@ public class Elite implements Selector {
         PriorityQueue<Phenotype> q = new PriorityQueue<>(new Comparator<Phenotype>() {
             @Override
             public int compare(Phenotype o1, Phenotype o2) {
-                if(o1.getFitness()-o2.getFitness()>0) return 1;
-                if(o1.getFitness()-o2.getFitness()<0) return -1;
+                if(o1.getFitness()-o2.getFitness()>0) return -1;
+                if(o1.getFitness()-o2.getFitness()<0) return 1;
                 return 0;
             }
         });
