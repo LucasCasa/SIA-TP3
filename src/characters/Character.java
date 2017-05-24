@@ -99,6 +99,6 @@ public abstract class Character  implements Phenotype {
         for(int i=1; i<chromosomes.length; i++){
             total+= chromosomes[i].getAtPos(index);
         }
-        return total;
+        return total*Constants.MODIF[index];
     }
 }

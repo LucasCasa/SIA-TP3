@@ -9,9 +9,11 @@ public class Constants {
     public final static int CHROMOSOME_COUNT = 6;
     public static final int ALELO_COUNT = 1000000;
     public static Data VALUES;
-    public static int LIFE = 4;
-    public static int WISDOM = 2;
-    public static int STRENGTH = 0;
-    public static int AGILITY = 1;
-    public static int RESISTANCE = 3;
+    public static final int LIFE = 4;
+    public static final int WISDOM = 2;
+    public static final int STRENGTH = 0;
+    public static final int AGILITY = 1;
+    public static final int RESISTANCE = 3;
+    public static double[] MODIF = new double[CHROMOSOME_COUNT-1];
+
 }
