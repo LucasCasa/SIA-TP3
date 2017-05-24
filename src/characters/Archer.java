@@ -9,8 +9,8 @@ import interfaces.Phenotype;
  */
 public class Archer extends Character{
 
-    public Archer(int[] data,double height){
-        super(data,height);
+    public Archer(Chromosome[] data){
+        super(data);
     }
 
     public Archer(double height){

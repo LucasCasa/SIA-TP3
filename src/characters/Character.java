@@ -1,6 +1,8 @@
 package characters;
 
 import ar.edu.itba.sia.Constants;
+import ar.edu.itba.sia.Height;
+import ar.edu.itba.sia.Main;
 import interfaces.Chromosome;
 import interfaces.Phenotype;
 
@@ -9,29 +11,28 @@ import interfaces.Phenotype;
  */
 public abstract class Character  implements Phenotype {
 
-    int[] chromosomes;
-    double height;
+    private Chromosome[] chromosomes;
+    private double height;
 
-    public Character(int[] data,double height){
-        chromosomes = new int[data.length];
-        for(int i = 0; i<data.length;i++) {
-            chromosomes[i] = data[i];
+    public Character(Chromosome[] data){
+        chromosomes = new Chromosome[data.length];
+        if(data.length == Constants.CHROMOSOME_COUNT) {
+            System.arraycopy(data,0,chromosomes,0,data.length);
         }
-        this.height = height;
     }
 
     public Character(double height){
-        this.height = height;
-        chromosomes = new int[Constants.CHROMOSOME_COUNT];
+        chromosomes = new Chromosome[Constants.CHROMOSOME_COUNT];
+
     }
 
     @Override
-    public int getChromosomeAtLocus(int pos) {
+    public Chromosome getChromosomeAtLocus(int pos) {
         return chromosomes[pos];
     }
 
     @Override
-    public void setChromosomeAtLocus(int c, int pos) {
+    public void setChromosomeAtLocus(Chromosome c, int pos) {
         chromosomes[pos] = c;
     }
 
@@ -43,7 +44,12 @@ public abstract class Character  implements Phenotype {
     @Override
     public Phenotype mutate() {
         int mut = (int)(Math.random()*Constants.CHROMOSOME_COUNT);
-        chromosomes[mut] = (int)(Math.random()*Constants.ALELO_COUNT);
+        if(mut == 0){
+            chromosomes[0] = new Height(Math.random()*0.7 + 1.3);
+        }else{
+            chromosomes[mut] = Constants.VALUES[mut-1][(int)(Math.random()*Constants.ALELO_COUNT)];
+        }
+
         return this;
     }
 
@@ -76,22 +82,22 @@ public abstract class Character  implements Phenotype {
     }
 
     private double getATM(){
-        return 0.5 - Math.pow(3*height-5,4) + Math.pow(3*height - 5,2) + height/2;
+        return 0.5 - Math.pow(3*getHeight()-5,4) + Math.pow(3*getHeight() - 5,2) + getHeight()/2;
     }
 
     private double getDTM(){
-        return 2 + Math.pow(3*height-5,4) - Math.pow(3*height - 5,2) - height/2;
+        return 2 + Math.pow(3*getHeight()-5,4) - Math.pow(3*getHeight() - 5,2) - getHeight()/2;
     }
 
     @Override
     public double getHeight(){
-        return height;
+        return chromosomes[0].getAtPos(0);
     }
 
     private double getStat(int index){
         double total = 0;
-        for(int i=0; i<chromosomes.length; i++){
-            total+= Constants.VALUES[i][chromosomes[i]].getAtPos(index);
+        for(int i=1; i<chromosomes.length; i++){
+            total+= chromosomes[i].getAtPos(index);
         }
         return total;
     }

@@ -1,6 +1,7 @@
 package ar.edu.itba.sia;
 
 import characters.Archer;
+import interfaces.Chromosome;
 import interfaces.Crosser;
 import interfaces.Phenotype;
 import interfaces.Selector;
@@ -28,8 +29,12 @@ public class Evolver {
     public void randomGeneration(){
         currentGeneration = new Phenotype[N];
         for(int i=0; i<N; i++){
-            currentGeneration[i] = new Archer(new int[]{rand.nextInt(Constants.ALELO_COUNT),rand.nextInt(Constants.ALELO_COUNT),
-                    rand.nextInt(Constants.ALELO_COUNT),rand.nextInt(Constants.ALELO_COUNT),rand.nextInt(Constants.ALELO_COUNT)},Math.random()*0.7+1.3);
+            Chromosome[] data = new Chromosome[Constants.CHROMOSOME_COUNT];
+            data[0] = new Height(Math.random()*0.7+1.3);
+            for(int j = 1; j<Constants.CHROMOSOME_COUNT;j++){
+                data[j] = Constants.VALUES[j-1][rand.nextInt(Constants.ALELO_COUNT)];
+            }
+            currentGeneration[i] = new Archer(data);
         }
     }
 
@@ -39,7 +44,7 @@ public class Evolver {
         }
         int counter = 0;
         printFitness(currentGeneration);
-        while(counter<500) { //COMO TERMINA?
+        while(counter<5000) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selector.selectPhenotypes(currentGeneration,k);
             //LOS CRUZO

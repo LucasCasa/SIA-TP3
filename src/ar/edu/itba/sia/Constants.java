@@ -6,8 +6,8 @@ import interfaces.Chromosome;
  * Created by lcasagrande on 23/05/17.
  */
 public class Constants {
-    public final static int CHROMOSOME_COUNT = 5;
-    public static final int ALELO_COUNT = 10000;
+    public final static int CHROMOSOME_COUNT = 6;
+    public static final int ALELO_COUNT = 100000;
     public static Chromosome[][] VALUES;
     public static int LIFE = 4;
     public static int WISDOM = 2;

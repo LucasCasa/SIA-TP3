@@ -1,16 +1,14 @@
 package characters;
 
+import interfaces.Chromosome;
+
 /**
  * Created by nkuyumciyan on 23/05/17.
  */
 public class Defender extends Character {
 
-    public Defender(int[] data,double height){
-        super(data,height);
-    }
-
-    public Defender(double height){
-        super(height);
+    public Defender(Chromosome[] data){
+        super(data);
     }
 
     @Override

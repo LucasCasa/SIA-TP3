@@ -1,12 +1,14 @@
 package characters;
 
+import interfaces.Chromosome;
+
 /**
  * Created by nkuyumciyan on 23/05/17.
  */
 public class Warrior extends Character{
 
-    public Warrior(int[] data,double height){
-        super(data,height);
+    public Warrior(Chromosome[] data){
+        super(data);
     }
 
     public Warrior(double height){

@@ -1,12 +1,14 @@
 package characters;
 
+import interfaces.Chromosome;
+
 /**
  * Created by nkuyumciyan on 23/05/17.
  */
 public class Assassin extends Character{
 
-    public Assassin(int[] data,double height){
-        super(data,height);
+    public Assassin(Chromosome[] data){
+        super(data);
     }
 
     public Assassin(double height){
