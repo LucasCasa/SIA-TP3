@@ -9,10 +9,19 @@ import interfaces.Phenotype;
  * Created by lcasagrande on 23/05/17.
  */
 public class Uniform implements Crosser{
+    private double pc;
 
+    public Uniform(double pc){
+        this.pc = pc;
+    }
     @Override
     public Phenotype[] crossover(Phenotype p1, Phenotype p2) {
         Phenotype[] children = new Phenotype[2];
+        if(Math.random() > pc){
+            children[0] = p1;
+            children[1] = p2;
+            return children;
+        }
         children[0] = new Archer((p1.getHeight()+p2.getHeight())/2);
         children[1] = new Archer((p1.getHeight()+p2.getHeight())/2);
         for(int i = 0; i< Constants.CHROMOSOME_COUNT;i++){

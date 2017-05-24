@@ -1,27 +1,32 @@
 package ar.edu.itba.sia;
 
 import characters.Archer;
-import interfaces.Chromosome;
-import interfaces.Crosser;
-import interfaces.Phenotype;
-import interfaces.Selector;
+import interfaces.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 /**
  * Created by lcasagrande on 23/05/17.
  */
 public class Evolver {
-    Crosser cruze;
-    Selector selector;
-    Random rand = new Random();
-    int N;
-    int k;
-    Phenotype[] currentGeneration;
+    private Crosser cruze;
+    private Selector selectionSelector;
+    private Selector replacementSelector;
+    private Mutator mutator;
+    private Random rand = new Random();
+    private int N;
+    private int k;
+    private double pm;
+    private Phenotype[] currentGeneration;
 
-    public Evolver(Crosser c,Selector s,int N, int k){
+    public Evolver(Crosser c,Selector ss,Selector rs,Mutator m,int N, int k){
         this.cruze = c;
-        this.selector = s;
+        this.selectionSelector = ss;
+        this.replacementSelector = rs;
+        this.mutator = m;
         this.N = N;
         this.k = k;
     }
@@ -38,42 +43,33 @@ public class Evolver {
         }
     }
 
-    public Phenotype evolve(){
+    public Phenotype evolve() throws IOException{
         if(currentGeneration == null){
             throw new RuntimeException("No phenotypes to evolve");
         }
         int counter = 0;
-        printFitness(currentGeneration);
+        System.out.println(averageFitness(currentGeneration));
+        FileWriter fl = new FileWriter("fitness.txt");
+        FileWriter fl2 = new FileWriter("bestFitness.txt");
         Phenotype best = currentGeneration[0];
-        while(counter<50000) { //COMO TERMINA?
+        while(counter<500000) { //COMO TERMINA?
             //ELIJO CANDIDATOS
-            Phenotype[] selected = selector.selectPhenotypes(currentGeneration,k);
+            Phenotype[] selected = selectionSelector.selectPhenotypes(currentGeneration,k);
             //LOS CRUZO
             Phenotype[] newPop = new Phenotype[k];
             for(int i = 0; i<k; i++){
                 Phenotype[] aux = cruze.crossover(selected[rand.nextInt(k)],selected[rand.nextInt(k)]);
-                if(Math.random() < 0.01) {
-                    newPop[i++] = aux[0].mutate();
-                    newPop[i] = aux[1].mutate();
-                    if(newPop[i].getFitness() > best.getFitness()){
-                        best = newPop[i];
-                    }
-                    if(newPop[i-1].getFitness() > best.getFitness()){
-                        best = newPop[i-1];
-                    }
-                }else{
-                    newPop[i++] = aux[0];
-                    newPop[i] = aux[1];
-                    if(newPop[i].getFitness() > best.getFitness()){
-                        best = newPop[i];
-                    }
-                    if(newPop[i-1].getFitness() > best.getFitness()){
-                        best = newPop[i-1];
-                    }
+                newPop[i++] = mutator.mutate(aux[0]);
+                newPop[i] = mutator.mutate(aux[1]);
+                if(newPop[i].getFitness() > best.getFitness()){
+                    best = newPop[i];
+                }
+                if(newPop[i-1].getFitness() > best.getFitness()){
+                    best = newPop[i-1];
                 }
             }
             //Metodo de reemplazo 2. Best Best reemplazo
-            Phenotype[] olds = selector.selectPhenotypes(currentGeneration,N-k);
+            Phenotype[] olds = replacementSelector.selectPhenotypes(currentGeneration,N-k);
             int i = 0;
             for(i= 0; i<N-k;i++){
                 currentGeneration[i] = olds[i];
@@ -87,22 +83,31 @@ public class Evolver {
             //TODO: SELECIONO UNA PARTE DE LA POBLACION
             //TODO: ME FIJO SI SE LLEGO A ALGO LINDO
             counter++;
-
+            if((counter % 10) == 0){
+                fl2.write(best.getFitness() + "\n");
+            }
+            if((counter % 500) == 0){
+                fl.write(averageFitness(currentGeneration) + "\n");
+                fl.write(best.getFitness() + "\n");
+                System.out.println(averageFitness(currentGeneration));
+            }
         }
-        printFitness(currentGeneration);
+        fl2.write(best.getFitness() + "\n");
+        fl.write(averageFitness(currentGeneration) + "\n");
         System.out.println("MEJOR: " + best.getFitness());
+        fl.close();
         return null;
     }
 
-    private void printFitness(Phenotype[] pop){
+    private String averageFitness(Phenotype[] pop){
         double total = 0;
         for(Phenotype p: pop){
             double fit = p.getFitness();
             total += fit;
-            System.out.print(fit + " | ");
+            //System.out.print(fit + " | ");
         }
-        System.out.println("");
-        System.out.println("Avg: " + total/(double)pop.length);
+        //System.out.println("");*/
+        return String.valueOf(total/(double)pop.length);
     }
 
 }

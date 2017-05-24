@@ -12,9 +12,22 @@ import java.util.Random;
  */
 public class Anular implements Crosser {
     Random r = new Random();
+    public double pc;
+
+    public Anular(double pc){
+        this.pc = pc;
+    }
+
     @Override
     public Phenotype[] crossover(Phenotype p1, Phenotype p2) {
         Phenotype[] children = new Phenotype[2];
+
+        if(Math.random() > pc){
+            children[0] = p1;
+            children[1] = p2;
+            return children;
+        }
+
         children[0] = new Archer((p1.getHeight()+p2.getHeight())/2);
         children[1] = new Archer((p1.getHeight()+p2.getHeight())/2);
         int rand = r.nextInt(Constants.CHROMOSOME_COUNT);

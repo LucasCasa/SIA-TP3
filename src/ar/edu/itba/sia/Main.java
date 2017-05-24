@@ -2,6 +2,7 @@ package ar.edu.itba.sia;
 
 import interfaces.Chromosome;
 import interfaces.Crosser;
+import interfaces.Mutator;
 import interfaces.Selector;
 
 import java.io.IOException;
@@ -15,12 +16,13 @@ public class Main {
 
         try {
             Config.getInstance().loadConfig("config.properties");
-            long time = System.currentTimeMillis();
-            DataLoader.loadData();
-            System.out.println(System.currentTimeMillis() - time);
 
             Crosser crosser = Config.getInstance().getCrosser();
-            Selector selector = Config.getInstance().getSelector();
+            Selector selectionSelector = Config.getInstance().getSelectionSelector();
+            Selector replacementSelector = Config.getInstance().getSelectionSelector();
+
+            Mutator mutator = Config.getInstance().getMutator();
+
             int N = Integer.parseInt(Config.getInstance().getProperty("n"));
             int k = Integer.parseInt(Config.getInstance().getProperty("k"));
             double pc = Config.getInstance().getDouble("pc");
@@ -30,8 +32,8 @@ public class Main {
             Constants.MODIF[Constants.WISDOM] = Config.getInstance().getDouble("wisdom_m");
             Constants.MODIF[Constants.RESISTANCE] = Config.getInstance().getDouble("resistance_m");
             Constants.MODIF[Constants.LIFE] = Config.getInstance().getDouble("life_m");
-            
-            Evolver e = new Evolver(crosser,selector,N,k);
+            DataLoader.loadData();
+            Evolver e = new Evolver(crosser,selectionSelector,replacementSelector,mutator,N,k);
             e.randomGeneration();
             e.evolve();
         } catch (IOException e) {

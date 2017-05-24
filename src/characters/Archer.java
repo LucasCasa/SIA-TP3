@@ -19,7 +19,10 @@ public class Archer extends Character{
 
     @Override
     public double getFitness() {
-        return 0.9*getAttack() + 0.1*getDefense();
+        if(super.fitness <= 0) {
+            fitness = 0.9 * getAttack() + 0.1 * getDefense();
+        }
+        return fitness;
     }
 
 }

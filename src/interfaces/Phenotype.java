@@ -10,6 +10,5 @@ public interface Phenotype {
     void setChromosomeAtLocus(Chromosome c, int pos);
     int getLocusCount();
     double getHeight();
-
-    Phenotype mutate();
+    Chromosome[] getChromosomes();
 }

@@ -13,6 +13,7 @@ public abstract class Character  implements Phenotype {
 
     private Chromosome[] chromosomes;
     private double height;
+    double fitness = -1;
 
     public Character(Chromosome[] data){
         chromosomes = new Chromosome[data.length];
@@ -39,18 +40,6 @@ public abstract class Character  implements Phenotype {
     @Override
     public int getLocusCount() {
         return 0;
-    }
-
-    @Override
-    public Phenotype mutate() {
-        int mut = (int)(Math.random()*Constants.CHROMOSOME_COUNT);
-        if(mut == 0){
-            chromosomes[0] = new Height(Math.random()*0.7 + 1.3);
-        }else{
-            chromosomes[mut] = Constants.VALUES.get(mut-1,(int)(Math.random()*Constants.ALELO_COUNT));
-        }
-
-        return this;
     }
 
     protected double getAttack(){
@@ -100,5 +89,9 @@ public abstract class Character  implements Phenotype {
             total+= chromosomes[i].getAtPos(index);
         }
         return total*Constants.MODIF[index];
+    }
+
+    public Chromosome[] getChromosomes(){
+        return chromosomes;
     }
 }
