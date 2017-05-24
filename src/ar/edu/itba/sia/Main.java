@@ -21,9 +21,10 @@ public class Main {
 
             Crosser crosser = Config.getInstance().getCrosser();
             Selector selector = Config.getInstance().getSelector();
-            int N = Integer.parseInt(Config.getInstance().getProperty("N"));
+            int N = Integer.parseInt(Config.getInstance().getProperty("n"));
             int k = Integer.parseInt(Config.getInstance().getProperty("k"));
-
+            double pc = Config.getInstance().getDouble("pc");
+            double pm = Config.getInstance().getDouble("pm");
             Evolver e = new Evolver(crosser,selector,N,k);
             e.randomGeneration();
             e.evolve();

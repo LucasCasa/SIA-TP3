@@ -52,7 +52,7 @@ public class Evolver {
             Phenotype[] newPop = new Phenotype[k];
             for(int i = 0; i<k; i++){
                 Phenotype[] aux = cruze.crossover(selected[rand.nextInt(k)],selected[rand.nextInt(k)]);
-                if(Math.random() > 0.5) {
+                if(Math.random() < 0.01) {
                     newPop[i++] = aux[0].mutate();
                     newPop[i] = aux[1].mutate();
                     if(newPop[i].getFitness() > best.getFitness()){
