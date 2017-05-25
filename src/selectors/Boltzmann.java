@@ -25,7 +25,7 @@ public class Boltzmann implements Selector {
         Phenotype[] ans = new Phenotype[k];
         double[] accumulatedFitness = getAccumulatedFitness(population);
         for(int i=0; i<k; i++){
-            double rand = Math.random();
+            double rand = Math.random()*k;
             Phenotype selected = getSelected(accumulatedFitness,rand,population);
             ans[i] = selected;
         }
@@ -35,21 +35,21 @@ public class Boltzmann implements Selector {
 
     protected double[] getAccumulatedFitness(Phenotype[] pop){
         double[] res = new double[pop.length];
-        double total = getTotalFitness(pop);
+        double avg = getAvgFitness(pop);
         double accumulated = 0;
         for(int i=0; i<pop.length; i++){
-            double relative = Math.exp(pop[i].getFitness()/T) / total;
+            double relative = Math.exp(pop[i].getFitness()/T) / avg;
             accumulated = accumulated + relative;
             res[i] = accumulated;
         }
         return res;
     }
 
-    private double getTotalFitness(Phenotype[] pop){
+    private double getAvgFitness(Phenotype[] pop){
         double total = 0;
         for(Phenotype p: pop)
             total += Math.exp(p.getFitness()/T);
-        return total;
+        return total/(double)pop.length;
     }
 
     private Phenotype getSelected(double[] accumulatedFitness, double rand, Phenotype[] pop){
