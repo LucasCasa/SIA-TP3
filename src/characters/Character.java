@@ -24,7 +24,6 @@ public abstract class Character  implements Phenotype {
 
     public Character(double height){
         chromosomes = new Chromosome[Constants.CHROMOSOME_COUNT];
-
     }
 
     @Override

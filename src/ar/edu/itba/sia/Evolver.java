@@ -55,6 +55,7 @@ public class Evolver {
         while(counter<500000) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selectionSelector.selectPhenotypes(currentGeneration,k);
+
             //LOS CRUZO
             Phenotype[] newPop = new Phenotype[k];
             for(int i = 0; i<k; i++){

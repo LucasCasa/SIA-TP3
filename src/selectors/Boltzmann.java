@@ -25,11 +25,13 @@ public class Boltzmann implements Selector {
         Phenotype[] ans = new Phenotype[k];
         double[] accumulatedFitness = getAccumulatedFitness(population);
         for(int i=0; i<k; i++){
-            double rand = Math.random()*k;
+            double rand = Math.random()*population.length;
             Phenotype selected = getSelected(accumulatedFitness,rand,population);
             ans[i] = selected;
         }
         generation++;
+        if(generation%100==0 && T>=2)
+            T--;
         return ans;
     }
 
@@ -59,5 +61,6 @@ public class Boltzmann implements Selector {
         }
         return null;
     }
+
 
 }
