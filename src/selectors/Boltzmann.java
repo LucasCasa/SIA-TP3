@@ -30,7 +30,7 @@ public class Boltzmann implements Selector {
             ans[i] = selected;
         }
         generation++;
-        if(generation%100==0 && T>=2)
+        if(generation%1000==0 && T>=2)
             T--;
         return ans;
     }

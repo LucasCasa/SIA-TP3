@@ -9,7 +9,7 @@ import interfaces.Selector;
  */
 public class DeterministicTourney implements Selector{
 
-    private int m;
+    int m;
 
     public DeterministicTourney(){
         m = Config.getInstance().getInteger("tournament_m");

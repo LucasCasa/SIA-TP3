@@ -52,7 +52,7 @@ public class Evolver {
         FileWriter fl = new FileWriter("fitness.txt");
         FileWriter fl2 = new FileWriter("bestFitness.txt");
         Phenotype best = currentGeneration[0];
-        while(counter<500000) { //COMO TERMINA?
+        while(counter<5000000) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selectionSelector.selectPhenotypes(currentGeneration,k);
 
@@ -96,6 +96,7 @@ public class Evolver {
         fl2.write(best.getFitness() + "\n");
         fl.write(averageFitness(currentGeneration) + "\n");
         System.out.println("MEJOR: " + best.getFitness());
+        System.out.println("height: " + best.getHeight());
         fl.close();
         return null;
     }

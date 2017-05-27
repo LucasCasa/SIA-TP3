@@ -19,7 +19,7 @@ public class Main {
 
             Crosser crosser = Config.getInstance().getCrosser();
             Selector selectionSelector = Config.getInstance().getSelectionSelector();
-            Selector replacementSelector = Config.getInstance().getSelectionSelector();
+            Selector replacementSelector = Config.getInstance().getReplacementSelector();
 
             Mutator mutator = Config.getInstance().getMutator();
 

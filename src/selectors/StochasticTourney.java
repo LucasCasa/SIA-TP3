@@ -21,7 +21,19 @@ public class StochasticTourney extends DeterministicTourney{
         }
     }
 
-    private Phenotype getWinner(Set<Phenotype> competitors){
+    @Override
+    public Phenotype[] selectPhenotypes(Phenotype[] population, int k) {
+        Phenotype[] competitors = new Phenotype[m];
+        Phenotype[] selected = new Phenotype[k];
+        for(int i=0; i<k; i++){
+            getCompetitors(competitors,population);
+            Phenotype winner = getWinner(competitors);
+            selected[i] = winner;
+        }
+        return selected;
+    }
+
+    private Phenotype getWinner(Phenotype[] competitors){
         Phenotype best = null;
         for(Phenotype p: competitors){
             if(best==null)
