@@ -35,7 +35,7 @@ public class Main {
             DataLoader.loadData();
             Evolver e = new Evolver(crosser,selectionSelector,replacementSelector,mutator,N,k);
             e.randomGeneration();
-            e.evolve(5000000);
+            e.evolve(Config.getInstance().getInteger("generations"));
         } catch (IOException e) {
             e.printStackTrace();
         }

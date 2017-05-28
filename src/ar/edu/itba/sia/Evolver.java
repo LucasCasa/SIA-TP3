@@ -48,7 +48,7 @@ public class Evolver {
             throw new RuntimeException("No phenotypes to evolve");
         }
         int counter = 0;
-        int jump = maxInter / 10000;
+        int jump = maxInter / 1000;
         System.out.println(averageFitness(currentGeneration));
         FileWriter fl = new FileWriter("fitness.txt");
         FileWriter fl2 = new FileWriter("bestFitness.txt");
@@ -95,7 +95,7 @@ public class Evolver {
         }
         fl2.write(best.getFitness() + "\n");
         fl.write(averageFitness(currentGeneration) + "\n");
-        System.out.println("MEJOR: " + best);
+        System.out.println("MEJOR: \n" + best);
         fl.close();
         fl2.close();
         return null;

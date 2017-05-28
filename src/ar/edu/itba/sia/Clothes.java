@@ -44,6 +44,6 @@ public class Clothes implements Chromosome,Serializable{
     }
 
     public String toString(){
-        return "[ id: " + id + " ,Fuerza: " + stats[0] + " ,Agilidad: " + stats[1] + " ,Pericia: " + stats[2] +" ,Resistencia: " + stats[3] +" ,Vida: " + stats[4] +" ]\n";
+        return "[id: " + id + ",   \tFuerza: " + stats[0] + ",\tAgilidad: " + stats[1] + ",  \tPericia: " + stats[2] +", \tResistencia: " + stats[3] +",\tVida: " + stats[4] +" ]\n";
     }
 }

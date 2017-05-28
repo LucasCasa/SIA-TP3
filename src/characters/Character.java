@@ -96,6 +96,6 @@ public abstract class Character  implements Phenotype {
 
     @Override
     public String toString() {
-        return "{Height: " + chromosomes[0] + "\nClothes: {\nWeapon: " + chromosomes[1] + "Boots: " + chromosomes[2] + "Helmet" + chromosomes[3] + "Gloves" + chromosomes[4]+ "Body" + chromosomes[5] + "]";
+        return "{\n\tFitness: "+ getFitness() +"\n\tHeight:  " + chromosomes[0] + "\tClothes: {\n\t\tWeapon:\t" + chromosomes[1] + "\t\tBoots:\t" + chromosomes[2] + "\t\tHelmet:\t" + chromosomes[3] + "\t\tGloves:\t" + chromosomes[4]+ "\t\tBody:\t" + chromosomes[5] + "]}";
     }
 }
