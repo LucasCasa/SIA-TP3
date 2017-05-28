@@ -67,6 +67,13 @@ public class Config {
         return Double.parseDouble(map.get(prop));
     }
 
+    public Boolean getBoolean(String prop){
+        prop = prop.toLowerCase();
+        if(!map.containsKey(prop))
+            return false;
+        return Boolean.parseBoolean(map.get(prop));
+    }
+
     public Crosser getCrosser(){
         String s = map.get("crosser");
         if(s==null)

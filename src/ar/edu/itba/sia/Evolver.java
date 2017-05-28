@@ -2,6 +2,7 @@ package ar.edu.itba.sia;
 
 import characters.Archer;
 import interfaces.*;
+import visual.LineChart;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,15 +21,19 @@ public class Evolver {
     private int N;
     private int k;
     private double pm;
+    private double worst = 0;
     private Phenotype[] currentGeneration;
 
-    public Evolver(Crosser c,Selector ss,Selector rs,Mutator m,int N, int k){
+    LineChart chart;
+
+    public Evolver(Crosser c,Selector ss,Selector rs,Mutator m,int N, int k, LineChart chart){
         this.cruze = c;
         this.selectionSelector = ss;
         this.replacementSelector = rs;
         this.mutator = m;
         this.N = N;
         this.k = k;
+        this.chart = chart;
     }
 
     public void randomGeneration(){
@@ -83,33 +88,44 @@ public class Evolver {
 
             //TODO: SELECIONO UNA PARTE DE LA POBLACION
             //TODO: ME FIJO SI SE LLEGO A ALGO LINDO
-            counter++;
+
             if((counter % 10) == 0){
                 fl2.write(best.getFitness() + "\n");
             }
             if((counter % 500) == 0){
-                fl.write(averageFitness(currentGeneration) + "\n");
+                double avg = averageFitness(currentGeneration);
+                fl.write(String.valueOf(avg) + "\n");
                 fl.write(best.getFitness() + "\n");
-                System.out.println(averageFitness(currentGeneration));
+                System.out.println(avg);
+                dispatchToGraph(best.getFitness(),avg,worst,counter);
             }
+            counter++;
         }
         fl2.write(best.getFitness() + "\n");
-        fl.write(averageFitness(currentGeneration) + "\n");
+        fl.write(String.valueOf(averageFitness(currentGeneration)) + "\n");
         System.out.println("MEJOR: " + best.getFitness());
         System.out.println("height: " + best.getHeight());
         fl.close();
         return null;
     }
 
-    private String averageFitness(Phenotype[] pop){
+    private double averageFitness(Phenotype[] pop){
         double total = 0;
+        worst = Integer.MAX_VALUE;
         for(Phenotype p: pop){
             double fit = p.getFitness();
+            if(fit<worst)
+                worst = fit;
             total += fit;
-            //System.out.print(fit + " | ");
         }
-        //System.out.println("");*/
-        return String.valueOf(total/(double)pop.length);
+        return (total/(double)pop.length);
     }
 
+    private void dispatchToGraph(double max, double avg, double min, int generation){
+        if(chart != null) {
+            chart.addData(max, "max", generation);
+            chart.addData(avg, "avg", generation);
+            chart.addData(min, "min", generation);
+        }
+    }
 }

@@ -4,6 +4,8 @@ import interfaces.Chromosome;
 import interfaces.Crosser;
 import interfaces.Mutator;
 import interfaces.Selector;
+import org.jfree.ui.RefineryUtilities;
+import visual.LineChart;
 
 import java.io.IOException;
 
@@ -33,7 +35,16 @@ public class Main {
             Constants.MODIF[Constants.RESISTANCE] = Config.getInstance().getDouble("resistance_m");
             Constants.MODIF[Constants.LIFE] = Config.getInstance().getDouble("life_m");
             DataLoader.loadData();
-            Evolver e = new Evolver(crosser,selectionSelector,replacementSelector,mutator,N,k);
+
+            LineChart chart = null;
+            if(Config.getInstance().getBoolean("visual")){
+                chart = new LineChart();
+                chart.pack( );
+                RefineryUtilities.centerFrameOnScreen( chart );
+                chart.setVisible( true );
+            }
+
+            Evolver e = new Evolver(crosser,selectionSelector,replacementSelector,mutator,N,k,chart);
             e.randomGeneration();
             e.evolve();
         } catch (IOException e) {
