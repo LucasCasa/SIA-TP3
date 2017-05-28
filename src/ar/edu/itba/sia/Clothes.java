@@ -9,14 +9,17 @@ import java.io.Serializable;
  */
 public class Clothes implements Chromosome,Serializable{
     double[] stats;
+    int id = 0;
     private static final long serialVersionUID = 1L;
 
 
-    public Clothes(double[] d){
+    public Clothes(double[] d,int id){
+        this.id = id;
         stats = d;
     }
 
-    public Clothes() {
+    public Clothes(int i) {
+        id = i;
         stats = new double[5];
     }
 
@@ -24,6 +27,12 @@ public class Clothes implements Chromosome,Serializable{
         return stats;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return id;
+    }
     @Override
     public void setAtPos(int j, double v) {
         stats[j] = v;
@@ -32,5 +41,9 @@ public class Clothes implements Chromosome,Serializable{
     @Override
     public double getAtPos(int j) {
         return stats[j];
+    }
+
+    public String toString(){
+        return "[ id: " + id + " ,Fuerza: " + stats[0] + " ,Agilidad: " + stats[1] + " ,Pericia: " + stats[2] +" ,Resistencia: " + stats[3] +" ,Vida: " + stats[4] +" ]\n";
     }
 }

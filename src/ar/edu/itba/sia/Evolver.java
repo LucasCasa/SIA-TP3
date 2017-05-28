@@ -43,16 +43,17 @@ public class Evolver {
         }
     }
 
-    public Phenotype evolve() throws IOException{
+    public Phenotype evolve(int maxInter) throws IOException{
         if(currentGeneration == null){
             throw new RuntimeException("No phenotypes to evolve");
         }
         int counter = 0;
+        int jump = maxInter / 10000;
         System.out.println(averageFitness(currentGeneration));
         FileWriter fl = new FileWriter("fitness.txt");
         FileWriter fl2 = new FileWriter("bestFitness.txt");
         Phenotype best = currentGeneration[0];
-        while(counter<5000000) { //COMO TERMINA?
+        while(counter<maxInter) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selectionSelector.selectPhenotypes(currentGeneration,k);
 
@@ -84,20 +85,19 @@ public class Evolver {
             //TODO: SELECIONO UNA PARTE DE LA POBLACION
             //TODO: ME FIJO SI SE LLEGO A ALGO LINDO
             counter++;
-            if((counter % 10) == 0){
+            if((counter % jump) == 0){
                 fl2.write(best.getFitness() + "\n");
             }
-            if((counter % 500) == 0){
+            if((counter % jump) == 0){
                 fl.write(averageFitness(currentGeneration) + "\n");
-                fl.write(best.getFitness() + "\n");
                 System.out.println(averageFitness(currentGeneration));
             }
         }
         fl2.write(best.getFitness() + "\n");
         fl.write(averageFitness(currentGeneration) + "\n");
-        System.out.println("MEJOR: " + best.getFitness());
-        System.out.println("height: " + best.getHeight());
+        System.out.println("MEJOR: " + best);
         fl.close();
+        fl2.close();
         return null;
     }
 

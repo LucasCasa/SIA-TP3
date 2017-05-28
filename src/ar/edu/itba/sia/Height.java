@@ -23,4 +23,9 @@ public class Height implements Chromosome,Serializable {
     public double getAtPos(int j) {
         return height;
     }
+
+    @Override
+    public String toString() {
+        return height + "\n";
+    }
 }

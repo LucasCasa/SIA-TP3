@@ -93,4 +93,9 @@ public abstract class Character  implements Phenotype {
     public Chromosome[] getChromosomes(){
         return chromosomes;
     }
+
+    @Override
+    public String toString() {
+        return "{Height: " + chromosomes[0] + "\nClothes: {\nWeapon: " + chromosomes[1] + "Boots: " + chromosomes[2] + "Helmet" + chromosomes[3] + "Gloves" + chromosomes[4]+ "Body" + chromosomes[5] + "]";
+    }
 }
