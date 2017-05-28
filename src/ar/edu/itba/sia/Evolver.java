@@ -20,7 +20,6 @@ public class Evolver {
     private Random rand = new Random();
     private int N;
     private int k;
-    private double pm;
     private double worst = 0;
     private Phenotype[] currentGeneration;
 
@@ -48,16 +47,17 @@ public class Evolver {
         }
     }
 
-    public Phenotype evolve() throws IOException{
+    public Phenotype evolve(int maxInter) throws IOException{
         if(currentGeneration == null){
             throw new RuntimeException("No phenotypes to evolve");
         }
         int counter = 0;
+        int jump = maxInter / 1000;
         System.out.println(averageFitness(currentGeneration));
         FileWriter fl = new FileWriter("fitness.txt");
         FileWriter fl2 = new FileWriter("bestFitness.txt");
         Phenotype best = currentGeneration[0];
-        while(counter<5000000) { //COMO TERMINA?
+        while(counter<maxInter) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selectionSelector.selectPhenotypes(currentGeneration,k);
 
@@ -88,24 +88,24 @@ public class Evolver {
 
             //TODO: SELECIONO UNA PARTE DE LA POBLACION
             //TODO: ME FIJO SI SE LLEGO A ALGO LINDO
-
-            if((counter % 10) == 0){
+            if((counter % jump) == 0){
                 fl2.write(best.getFitness() + "\n");
-            }
-            if((counter % 500) == 0){
+
                 double avg = averageFitness(currentGeneration);
                 fl.write(String.valueOf(avg) + "\n");
-                fl.write(best.getFitness() + "\n");
                 System.out.println(avg);
                 dispatchToGraph(best.getFitness(),avg,worst,counter);
             }
             counter++;
         }
         fl2.write(best.getFitness() + "\n");
+
         fl.write(String.valueOf(averageFitness(currentGeneration)) + "\n");
         System.out.println("MEJOR: " + best.getFitness());
         System.out.println("height: " + best.getHeight());
+
         fl.close();
+        fl2.close();
         return null;
     }
 
