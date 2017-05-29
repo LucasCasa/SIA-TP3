@@ -13,13 +13,10 @@ public class Elite implements Selector {
     @Override
     public Phenotype[] selectPhenotypes(Phenotype[] population, int k) {
         Phenotype[] selected = new Phenotype[k];
-        PriorityQueue<Phenotype> q = new PriorityQueue<>(new Comparator<Phenotype>() {
-            @Override
-            public int compare(Phenotype o1, Phenotype o2) {
-                if(o1.getFitness()-o2.getFitness()>0) return -1;
-                if(o1.getFitness()-o2.getFitness()<0) return 1;
-                return 0;
-            }
+        PriorityQueue<Phenotype> q = new PriorityQueue<>((o1, o2) -> {
+            if(o1.getFitness()-o2.getFitness()>0) return -1;
+            if(o1.getFitness()-o2.getFitness()<0) return 1;
+            return 0;
         });
         for(Phenotype p: population) {
             q.add(p);

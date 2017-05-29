@@ -13,8 +13,8 @@ public class Archer extends Character{
         super(data);
     }
 
-    public Archer(double height){
-        super(height);
+    public Archer(){
+        super();
     }
 
     @Override

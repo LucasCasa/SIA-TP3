@@ -12,7 +12,6 @@ import interfaces.Phenotype;
 public abstract class Character  implements Phenotype {
 
     private Chromosome[] chromosomes;
-    private double height;
     double fitness = -1;
 
     public Character(Chromosome[] data){
@@ -22,7 +21,7 @@ public abstract class Character  implements Phenotype {
         }
     }
 
-    public Character(double height){
+    public Character(){
         chromosomes = new Chromosome[Constants.CHROMOSOME_COUNT];
     }
 
@@ -34,11 +33,6 @@ public abstract class Character  implements Phenotype {
     @Override
     public void setChromosomeAtLocus(Chromosome c, int pos) {
         chromosomes[pos] = c;
-    }
-
-    @Override
-    public int getLocusCount() {
-        return 0;
     }
 
     protected double getAttack(){
@@ -88,10 +82,6 @@ public abstract class Character  implements Phenotype {
             total+= chromosomes[i].getAtPos(index);
         }
         return total*Constants.MODIF[index];
-    }
-
-    public Chromosome[] getChromosomes(){
-        return chromosomes;
     }
 
     @Override

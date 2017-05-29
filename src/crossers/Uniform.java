@@ -1,7 +1,7 @@
 package crossers;
 
-import characters.Archer;
 import ar.edu.itba.sia.Constants;
+import characters.CharacterBuilder;
 import interfaces.Crosser;
 import interfaces.Phenotype;
 
@@ -22,8 +22,8 @@ public class Uniform implements Crosser{
             children[1] = p2;
             return children;
         }
-        children[0] = new Archer((p1.getHeight()+p2.getHeight())/2);
-        children[1] = new Archer((p1.getHeight()+p2.getHeight())/2);
+        children[0] = CharacterBuilder.getInstance().build();
+        children[1] = CharacterBuilder.getInstance().build();
         for(int i = 0; i< Constants.CHROMOSOME_COUNT;i++){
             if(Math.random() < 0.5){
                 children[0].setChromosomeAtLocus(p1.getChromosomeAtLocus(i),i);

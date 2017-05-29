@@ -11,8 +11,8 @@ public class Assassin extends Character{
         super(data);
     }
 
-    public Assassin(double height){
-        super(height);
+    public Assassin(){
+        super();
     }
 
     @Override

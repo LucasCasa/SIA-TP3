@@ -11,8 +11,8 @@ public class Warrior extends Character{
         super(data);
     }
 
-    public Warrior(double height){
-        super(height);
+    public Warrior(){
+        super();
     }
 
     @Override

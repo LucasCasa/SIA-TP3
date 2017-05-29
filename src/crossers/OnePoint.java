@@ -2,6 +2,7 @@ package crossers;
 
 import characters.Archer;
 import ar.edu.itba.sia.Constants;
+import characters.CharacterBuilder;
 import interfaces.Crosser;
 import interfaces.Phenotype;
 
@@ -27,8 +28,8 @@ public class OnePoint implements Crosser {
         }
 
 
-        children[0] = new Archer((p1.getHeight()+p2.getHeight())/2);
-        children[1] = new Archer((p1.getHeight()+p2.getHeight())/2);
+        children[0] = CharacterBuilder.getInstance().build();
+        children[1] = CharacterBuilder.getInstance().build();
         int rand = r.nextInt(Constants.CHROMOSOME_COUNT);
         for(int i = 0; i<Constants.CHROMOSOME_COUNT; i++){
             if(rand <= i){

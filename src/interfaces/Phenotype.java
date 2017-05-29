@@ -8,7 +8,5 @@ public interface Phenotype {
     double getFitness();
     Chromosome getChromosomeAtLocus(int pos);
     void setChromosomeAtLocus(Chromosome c, int pos);
-    int getLocusCount();
     double getHeight();
-    Chromosome[] getChromosomes();
 }

@@ -11,6 +11,10 @@ public class Defender extends Character {
         super(data);
     }
 
+    public Defender(){
+        super();
+    }
+
     @Override
     public double getFitness() {
         return 0.1*getAttack() + 0.9*getDefense();

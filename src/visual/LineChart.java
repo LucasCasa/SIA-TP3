@@ -5,8 +5,15 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.title.Title;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Usuario on 28/5/2017.
@@ -17,6 +24,7 @@ public class LineChart extends ApplicationFrame {
 
     public LineChart() {
         super(Config.getInstance().getProperty("app_title"));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         lineChart = ChartFactory.createLineChart(
                 Config.getInstance().getProperty("chart_title"),
                 "Generation","Fitness",

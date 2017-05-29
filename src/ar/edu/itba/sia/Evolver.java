@@ -2,6 +2,7 @@ package ar.edu.itba.sia;
 
 import characters.Archer;
 import characters.Character;
+import characters.CharacterBuilder;
 import interfaces.*;
 import visual.LineChart;
 
@@ -42,14 +43,18 @@ public class Evolver {
     }
 
     public void randomGeneration(){
+        double minHeight = Config.getInstance().getDouble("min_height");
+        double maxHeight = Config.getInstance().getDouble("max_height");
+        if(minHeight<=0 || maxHeight <=0 || minHeight>maxHeight)
+            throw new IllegalArgumentException("Invalid heights");
         currentGeneration = new Phenotype[N];
         for(int i=0; i<N; i++){
             Chromosome[] data = new Chromosome[Constants.CHROMOSOME_COUNT];
-            data[0] = new Height(Math.random()*0.7+1.3);
+            data[0] = new Height(Math.random()*(maxHeight-minHeight)+minHeight);
             for(int j = 1; j<Constants.CHROMOSOME_COUNT;j++){
                 data[j] = Constants.VALUES.get(j-1,rand.nextInt(Constants.ALELO_COUNT));
             }
-            currentGeneration[i] = new Archer(data);
+            currentGeneration[i] = CharacterBuilder.getInstance().build(data);
         }
     }
 
