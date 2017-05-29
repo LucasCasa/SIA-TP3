@@ -101,8 +101,7 @@ public class Evolver {
         fl2.write(best.getFitness() + "\n");
 
         fl.write(String.valueOf(averageFitness(currentGeneration)) + "\n");
-        System.out.println("MEJOR: " + best.getFitness());
-        System.out.println("height: " + best.getHeight());
+        System.out.println("MEJOR: " + best);
 
         fl.close();
         fl2.close();

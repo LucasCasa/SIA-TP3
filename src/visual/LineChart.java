@@ -18,7 +18,7 @@ public class LineChart extends ApplicationFrame {
         super(Config.getInstance().getProperty("app_title"));
         JFreeChart lineChart = ChartFactory.createLineChart(
                 Config.getInstance().getProperty("chart_title"),
-                "Fitness","Generation",
+                "Generation","Fitness",
                 createDataset(),
                 PlotOrientation.VERTICAL,
                 true,true,false);
