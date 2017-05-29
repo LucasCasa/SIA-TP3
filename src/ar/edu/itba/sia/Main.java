@@ -1,9 +1,6 @@
 package ar.edu.itba.sia;
 
-import interfaces.Chromosome;
-import interfaces.Crosser;
-import interfaces.Mutator;
-import interfaces.Selector;
+import interfaces.*;
 import org.jfree.ui.RefineryUtilities;
 import visual.LineChart;
 
@@ -44,9 +41,11 @@ public class Main {
                 chart.setVisible( true );
             }
 
+            EndCondition condition = Config.getInstance().getEndCondition();
+
             Evolver e = new Evolver(crosser,selectionSelector,replacementSelector,mutator,N,k,chart);
             e.randomGeneration();
-            e.evolve(Config.getInstance().getInteger("generations"));
+            e.evolve(condition);
         } catch (IOException e) {
             e.printStackTrace();
         }

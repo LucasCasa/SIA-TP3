@@ -4,7 +4,10 @@ import crossers.Anular;
 import crossers.OnePoint;
 import crossers.TwoPoints;
 import crossers.Uniform;
+import endconditions.EndByBest;
+import endconditions.GenerationCount;
 import interfaces.Crosser;
+import interfaces.EndCondition;
 import interfaces.Mutator;
 import interfaces.Selector;
 import selectors.*;
@@ -42,7 +45,7 @@ public class Config {
         p.load(input);
 
         for (final String name: p.stringPropertyNames()) {
-            map.put(name, p.getProperty(name));
+            map.put(name, p.getProperty(name).toLowerCase());
         }
     }
 
@@ -154,4 +157,14 @@ public class Config {
         return new UniformMutate(getDouble("pm"));
     }
 
+    public EndCondition getEndCondition() {
+        String str = map.get("endcondition");
+        if(str==null)
+            throw new IllegalArgumentException("Argument endcondition missing");
+        switch (str){
+            case "generations": return new GenerationCount();
+            case "best": return new EndByBest();
+            default: throw new IllegalArgumentException("Invalid endcondition param");
+        }
+    }
 }

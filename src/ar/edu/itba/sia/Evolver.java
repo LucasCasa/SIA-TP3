@@ -1,6 +1,7 @@
 package ar.edu.itba.sia;
 
 import characters.Archer;
+import characters.Character;
 import interfaces.*;
 import visual.LineChart;
 
@@ -13,6 +14,8 @@ import java.util.Random;
  * Created by lcasagrande on 23/05/17.
  */
 public class Evolver {
+    private boolean write_to_file;
+
     private Crosser cruze;
     private Selector selectionSelector;
     private Selector replacementSelector;
@@ -21,7 +24,9 @@ public class Evolver {
     private int N;
     private int k;
     private double worst = 0;
+    private int generation = 0;
     private Phenotype[] currentGeneration;
+    Phenotype best;
 
     LineChart chart;
 
@@ -33,6 +38,7 @@ public class Evolver {
         this.N = N;
         this.k = k;
         this.chart = chart;
+        write_to_file = (Config.getInstance().getBoolean("write_to_file"));
     }
 
     public void randomGeneration(){
@@ -47,17 +53,22 @@ public class Evolver {
         }
     }
 
-    public Phenotype evolve(int maxInter) throws IOException{
+    public Phenotype evolve(EndCondition condition) throws IOException{
         if(currentGeneration == null){
             throw new RuntimeException("No phenotypes to evolve");
         }
-        int counter = 0;
-        int jump = maxInter / 1000;
-        System.out.println(averageFitness(currentGeneration));
-        FileWriter fl = new FileWriter("fitness.txt");
-        FileWriter fl2 = new FileWriter("bestFitness.txt");
-        Phenotype best = currentGeneration[0];
-        while(counter<maxInter) { //COMO TERMINA?
+
+        int jump = Config.getInstance().getInteger("jump");
+
+        FileWriter fl = null;
+        FileWriter fl2 = null;
+
+        if(write_to_file) {
+            fl = new FileWriter("fitness.txt");
+            fl2 = new FileWriter("bestFitness.txt");
+        }
+        best = currentGeneration[0];
+        while(!condition.end(this)) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selectionSelector.selectPhenotypes(currentGeneration,k);
 
@@ -88,24 +99,26 @@ public class Evolver {
 
             //TODO: SELECIONO UNA PARTE DE LA POBLACION
             //TODO: ME FIJO SI SE LLEGO A ALGO LINDO
-            if((counter % jump) == 0){
-                fl2.write(best.getFitness() + "\n");
-
+            if((generation % jump) == 0){
                 double avg = averageFitness(currentGeneration);
-                fl.write(String.valueOf(avg) + "\n");
+                if(write_to_file) {
+                    fl2.write(best.getFitness() + "\n");
+                    fl.write(String.valueOf(avg) + "\n");
+                }
                 System.out.println(avg);
-                dispatchToGraph(best.getFitness(),avg,worst,counter);
+                dispatchToGraph(best.getFitness(),avg,worst,generation);
             }
-            counter++;
+            generation++;
         }
-        fl2.write(best.getFitness() + "\n");
-
-        fl.write(String.valueOf(averageFitness(currentGeneration)) + "\n");
+        if(write_to_file) {
+            fl2.write(best.getFitness() + "\n");
+            fl.write(String.valueOf(averageFitness(currentGeneration)) + "\n");
+            fl.close();
+            fl2.close();
+        }
+        System.out.println("GENERACION: " + generation);
         System.out.println("MEJOR: " + best);
-
-        fl.close();
-        fl2.close();
-        return null;
+        return best;
     }
 
     private double averageFitness(Phenotype[] pop){
@@ -126,5 +139,13 @@ public class Evolver {
             chart.addData(avg, "avg", generation);
             chart.addData(min, "min", generation);
         }
+    }
+
+    public int getGeneration(){
+        return this.generation;
+    }
+
+    public Phenotype getBest(){
+        return best;
     }
 }

@@ -11,11 +11,16 @@ public class Boltzmann implements Selector {
 
     private double T;
     private int generation; // T varies according to generation (more g less t)
+    private int jump;
 
     public Boltzmann(){
         T = Config.getInstance().getInteger("initial_temperature");
+        jump = Config.getInstance().getInteger("temperature_reduction");
         if(T<=0){
             throw new IllegalArgumentException("Illegal value for param initial_temperature");
+        }
+        if(jump<=0){
+            throw new IllegalArgumentException("Illegal value for param temperature_reduction");
         }
         generation = 1;
     }
@@ -30,7 +35,7 @@ public class Boltzmann implements Selector {
             ans[i] = selected;
         }
         generation++;
-        if(generation%1000==0 && T>=2)
+        if(generation%jump==0 && T>=2)
             T--;
         return ans;
     }
