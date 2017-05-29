@@ -135,9 +135,7 @@ public class Evolver {
 
     private void dispatchToGraph(double max, double avg, double min, int generation){
         if(chart != null) {
-            chart.addData(max, "max", generation);
-            chart.addData(avg, "avg", generation);
-            chart.addData(min, "min", generation);
+            chart.addGeneration(max,avg,min,generation);
         }
     }
 

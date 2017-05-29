@@ -13,10 +13,11 @@ import org.jfree.ui.ApplicationFrame;
  */
 public class LineChart extends ApplicationFrame {
     private DefaultCategoryDataset dataset;
+    private JFreeChart lineChart;
 
     public LineChart() {
         super(Config.getInstance().getProperty("app_title"));
-        JFreeChart lineChart = ChartFactory.createLineChart(
+        lineChart = ChartFactory.createLineChart(
                 Config.getInstance().getProperty("chart_title"),
                 "Generation","Fitness",
                 createDataset(),
@@ -30,6 +31,13 @@ public class LineChart extends ApplicationFrame {
 
     public void addData(double value, String type, Integer xvalue){
         dataset.addValue(value,type,xvalue);
+    }
+
+    public void addGeneration(double best, double avg, double min, Integer generation){
+        dataset.addValue(best, "best", generation);
+        dataset.addValue(avg, "avg", generation);
+        dataset.addValue(min, "min", generation);
+        lineChart.setTitle("Generation: " + generation.toString());
     }
 
     private DefaultCategoryDataset createDataset( ) {
