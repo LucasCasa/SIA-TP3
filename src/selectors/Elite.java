@@ -23,9 +23,9 @@ public class Elite implements Selector {
         }
         int counter = 0;
         for(Phenotype p: q){
-            selected[counter++] = p;
             if(counter==k)
                 return selected;
+            selected[counter++] = p;
         }
         return selected;
     }
