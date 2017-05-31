@@ -17,8 +17,8 @@ public class Ranking implements Selector {
         PriorityQueue<Phenotype> q = new PriorityQueue<>(new Comparator<Phenotype>() {
             @Override
             public int compare(Phenotype o1, Phenotype o2) {
-                if(o1.getFitness()-o2.getFitness()>0) return 1;
-                if(o1.getFitness()-o2.getFitness()<0) return -1;
+                if(o1.getFitness()-o2.getFitness()>0) return -1;
+                if(o1.getFitness()-o2.getFitness()<0) return 1;
                 return 0;
             }
         });
@@ -38,11 +38,12 @@ public class Ranking implements Selector {
         double rand = Math.random();
         int counter = q.size();
         int numerator = 0;
-        for(Phenotype p: q){
+        while(!q.isEmpty()){
+            Phenotype current = q.poll();
             numerator += counter;
             //System.out.println((double)numerator/(double)sum);
             if(rand<=(double)numerator/(double)sum)
-                return p;
+                return current;
             counter--;
         }
         return null;

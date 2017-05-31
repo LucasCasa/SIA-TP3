@@ -22,10 +22,10 @@ public class Elite implements Selector {
             q.add(p);
         }
         int counter = 0;
-        for(Phenotype p: q){
+        while(!q.isEmpty()){
             if(counter==k)
                 return selected;
-            selected[counter++] = p;
+            selected[counter++] = q.poll();
         }
         return selected;
     }
