@@ -3,8 +3,7 @@ package selectors;
 import interfaces.Phenotype;
 import interfaces.Selector;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Created by lcasagrande on 23/05/17.
@@ -14,37 +13,32 @@ public class Ranking implements Selector {
     @Override
     public Phenotype[] selectPhenotypes(Phenotype[] population, int k) {
         Phenotype[] selected = new Phenotype[k];
-        PriorityQueue<Phenotype> q = new PriorityQueue<>(new Comparator<Phenotype>() {
-            @Override
-            public int compare(Phenotype o1, Phenotype o2) {
-                if(o1.getFitness()-o2.getFitness()>0) return -1;
-                if(o1.getFitness()-o2.getFitness()<0) return 1;
-                return 0;
-            }
-        });
-        for(Phenotype p: population) {
-            q.add(p);
-        }
 
+        List<Phenotype> list = createList(population);
+        Collections.sort(list, (o1, o2) -> {
+            if(o1.getFitness()-o2.getFitness()>0) return -1;
+            if(o1.getFitness()-o2.getFitness()<0) return 1;
+            return 0;
+        });
         for(int i=0; i<k; i++){
-            Phenotype p = select(q);
+            Phenotype p = select(list);
             selected[i] = p;
         }
         return selected;
     }
 
-    private Phenotype select(PriorityQueue<Phenotype> q){
-        int sum = sumToN(q.size());
+    private Phenotype select(List<Phenotype> orderedList){
+        int sum = sumToN(orderedList.size());
         double rand = Math.random();
-        int counter = q.size();
+        int original = orderedList.size();
         int numerator = 0;
-        while(!q.isEmpty()){
-            Phenotype current = q.poll();
-            numerator += counter;
-            //System.out.println((double)numerator/(double)sum);
+        int counter = 0;
+        for(Phenotype p: orderedList){
+            numerator += (original-counter);
             if(rand<=(double)numerator/(double)sum)
-                return current;
-            counter--;
+                return p;
+            counter++;
+
         }
         return null;
     }
@@ -53,4 +47,10 @@ public class Ranking implements Selector {
         return (N*(N+1))/2;
     }
 
+    private List<Phenotype> createList(Phenotype[] pop){
+        List<Phenotype> list = new ArrayList<>();
+        for(Phenotype p: pop)
+            list.add(p);
+        return list;
+    }
 }
