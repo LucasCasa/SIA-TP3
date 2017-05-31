@@ -67,7 +67,7 @@ public class Boltzmann implements Selector {
     private double getT(){
         if(lessThanMin)
             return minT;
-        double T = 100*Math.exp(-generation*k/100000);
+        double T = initial_temperature*Math.exp(-generation*k/100000);
         if(T<minT) {
             lessThanMin = true;
             return minT;

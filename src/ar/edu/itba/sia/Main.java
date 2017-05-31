@@ -15,7 +15,8 @@ public class Main {
 
         try {
             Config.getInstance().loadConfig("config.properties");
-
+            DataLoader.loadData();
+            //for(int i = 0; i<10;i++) {
             Crosser crosser = Config.getInstance().getCrosser();
             Selector selectionSelector = Config.getInstance().getSelectionSelector();
             Selector replacementSelector = Config.getInstance().getReplacementSelector();
@@ -31,7 +32,6 @@ public class Main {
             Constants.MODIF[Constants.WISDOM] = Config.getInstance().getDouble("wisdom_m");
             Constants.MODIF[Constants.RESISTANCE] = Config.getInstance().getDouble("resistance_m");
             Constants.MODIF[Constants.LIFE] = Config.getInstance().getDouble("life_m");
-            DataLoader.loadData();
 
             LineChart chart = null;
             if(Config.getInstance().getBoolean("visual")){
@@ -42,10 +42,10 @@ public class Main {
             }
 
             EndCondition condition = Config.getInstance().getEndCondition();
-
-            Evolver e = new Evolver(crosser,selectionSelector,replacementSelector,mutator,N,k,chart);
-            e.randomGeneration();
-            e.evolve(condition);
+                Evolver e = new Evolver(crosser, selectionSelector, replacementSelector, mutator, N, k, chart);
+                e.randomGeneration();
+                e.evolve(condition);
+            //}
         } catch (IOException e) {
             e.printStackTrace();
         }
