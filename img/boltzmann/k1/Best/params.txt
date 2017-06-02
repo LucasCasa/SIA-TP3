@@ -32,7 +32,7 @@ pm=0.01
 #Initial temperature for Boltzmann
 initial_temperature=100
 #decrease temperature by
-temperature_k=2
+temperature_k=1
 
 #Particular problem modifiers
 strength_m=0.9
