@@ -62,4 +62,3 @@ write_to_file=false
 jump=1000
 app_title=Genetic algorithm
 chart_title=Best fitness overall and Average and Minimum Fitness per Generation
-

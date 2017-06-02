@@ -5,6 +5,7 @@ import crossers.OnePoint;
 import crossers.TwoPoints;
 import crossers.Uniform;
 import endconditions.EndByBest;
+import endconditions.EndByTarget;
 import endconditions.GenerationCount;
 import interfaces.Crosser;
 import interfaces.EndCondition;
@@ -164,6 +165,7 @@ public class Config {
         switch (str){
             case "generations": return new GenerationCount();
             case "best": return new EndByBest();
+            case "target": return new EndByTarget();
             default: throw new IllegalArgumentException("Invalid endcondition param");
         }
     }

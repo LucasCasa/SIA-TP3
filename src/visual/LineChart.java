@@ -38,7 +38,7 @@ public class LineChart extends ApplicationFrame {
     }
 
     public void addGeneration(double best, double avg, double min, Integer generation){
-        ((TextTitle)(lineChart.getSubtitle(0))).setText("Generation: " + generation + " Best");
+        ((TextTitle)(lineChart.getSubtitle(0))).setText("Generation: " + generation);
         ((TextTitle)(lineChart.getSubtitle(1))).setText("Best: " + best);
         dataset.getSeries("Best").add((double)generation,best);
         dataset.getSeries("Average").add((double)generation,avg);

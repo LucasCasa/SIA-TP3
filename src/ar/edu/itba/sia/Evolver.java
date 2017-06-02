@@ -110,7 +110,7 @@ public class Evolver {
                     fl2.write(best.getFitness() + "\n");
                     fl.write(String.valueOf(avg) + "\n");
                 }
-                System.out.println(avg);
+                //System.out.println(avg);
                 dispatchToGraph(best.getFitness(),avg,worst,generation);
             }
             generation++;

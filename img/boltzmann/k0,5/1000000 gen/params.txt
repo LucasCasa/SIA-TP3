@@ -47,17 +47,15 @@ max_height=2.0
 #Types: archer, assassin, defender, warrior
 character_type=archer
 
-# generations, best,target
-endcondition=target
+# generations, best,
+endcondition=generations
 #max number of generations
 generations=1000000
 #max number of generations with the same best
 best_amount=1000000
-#target
-target=53.78373
 
 # I/O
-visual=false
+visual=true
 write_to_file=false
 jump=1000
 app_title=Genetic algorithm
