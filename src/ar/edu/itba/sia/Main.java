@@ -46,7 +46,7 @@ public class Main {
                 Evolver e = new Evolver(crosser, selectionSelector, replacementSelector, mutator, N, k, chart);
                 e.randomGeneration();
                 e.evolve(condition);
-            }
+             }
         } catch (IOException e) {
             e.printStackTrace();
         }
