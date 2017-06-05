@@ -48,7 +48,7 @@ max_height=2.0
 character_type=archer
 
 # generations, best,target
-endcondition=target
+endcondition=generations
 #max number of generations
 generations=1000000
 #max number of generations with the same best

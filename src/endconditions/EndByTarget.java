@@ -9,13 +9,17 @@ import interfaces.EndCondition;
  */
 public class EndByTarget implements EndCondition{
     double target = 0;
+    int target_limit;
     public EndByTarget(){
         target = Config.getInstance().getDouble("target");
+        target_limit = Config.getInstance().getInteger("target_limit");
         if(target<=0)
             throw new IllegalArgumentException("target must be a positive double");
+        if(target_limit<=0)
+            throw new IllegalArgumentException("Invalid target limit");
     }
     @Override
     public boolean end(Evolver e) {
-        return e.getBest().getFitness() >= target || e.getGeneration() > 5000000;
+        return e.getBest().getFitness() >= target || e.getGeneration() > target_limit;
     }
 }
