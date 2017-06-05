@@ -18,7 +18,7 @@ public class Main {
             System.out.println("Loading data...");
             DataLoader.loadData();
             System.out.println("Done");
-            for(int i = 0; i<5;i++) {
+            for(int i = 0; i<10;i++) {
                 Crosser crosser = Config.getInstance().getCrosser();
                 Selector selectionSelector = Config.getInstance().getSelectionSelector();
                 Selector replacementSelector = Config.getInstance().getReplacementSelector();
