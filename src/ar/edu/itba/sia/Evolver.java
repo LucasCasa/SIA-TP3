@@ -26,6 +26,7 @@ public class Evolver {
     private int k;
     private double worst = 0;
     private int generation = 0;
+    private double max = 0;
     private Phenotype[] currentGeneration;
     Phenotype best;
 
@@ -112,7 +113,7 @@ public class Evolver {
                     fl.write(String.valueOf(avg) + "\n");
                 }
                 //System.out.println(avg);
-                dispatchToGraph(best.getFitness(),avg,worst,generation);
+                dispatchToGraph(best.getFitness(),max,avg,worst,generation);
             }
             generation++;
         }
@@ -130,18 +131,21 @@ public class Evolver {
     private double averageFitness(Phenotype[] pop){
         double total = 0;
         worst = Integer.MAX_VALUE;
+        max = 0;
         for(Phenotype p: pop){
             double fit = p.getFitness();
             if(fit<worst)
                 worst = fit;
+            if(fit>max)
+                max = fit;
             total += fit;
         }
         return (total/(double)pop.length);
     }
 
-    private void dispatchToGraph(double max, double avg, double min, int generation){
+    private void dispatchToGraph(double best, double max, double avg, double min, int generation){
         if(chart != null) {
-            chart.addGeneration(max,avg,min,generation);
+            chart.addGeneration(best,max,avg,min,generation);
         }
     }
 

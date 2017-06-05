@@ -24,14 +24,14 @@ public class Main {
 
                 int N = Integer.parseInt(Config.getInstance().getProperty("n"));
                 int k = Integer.parseInt(Config.getInstance().getProperty("k"));
-                double pc = Config.getInstance().getDouble("pc");
-                double pm = Config.getInstance().getDouble("pm");
                 Constants.MODIF[Constants.STRENGTH] = Config.getInstance().getDouble("strength_m");
                 Constants.MODIF[Constants.AGILITY] = Config.getInstance().getDouble("agility_m");
                 Constants.MODIF[Constants.WISDOM] = Config.getInstance().getDouble("wisdom_m");
                 Constants.MODIF[Constants.RESISTANCE] = Config.getInstance().getDouble("resistance_m");
                 Constants.MODIF[Constants.LIFE] = Config.getInstance().getDouble("life_m");
+                System.out.println("Loading data...");
                 DataLoader.loadData();
+                System.out.println("Done");
 
                 LineChart chart = null;
                 if (Config.getInstance().getBoolean("visual")) {

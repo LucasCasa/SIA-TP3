@@ -73,8 +73,9 @@ public class Config {
 
     public Boolean getBoolean(String prop){
         prop = prop.toLowerCase();
-        if(!map.containsKey(prop))
+        if(!map.containsKey(prop)) {
             return false;
+        }
         return Boolean.parseBoolean(map.get(prop));
     }
 
