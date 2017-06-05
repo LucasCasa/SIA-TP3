@@ -1,10 +1,10 @@
 #Selectors: boltzmann, deterministicTourney, elite, ranking, roulette, stochasticTourney, universal
 #Selectors 1 and 2 ---> select for crossover
 selector1=Elite
-selector2=Elite
+selector2=Ranking
 #Selectors 3 and 4 ---> select for replacement
 selector3=ELite
-selector4=Elite
+selector4=Ranking
 
 #a ---> ratio selector1/selector2
 a=0.5

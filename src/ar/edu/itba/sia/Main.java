@@ -14,9 +14,11 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            DataLoader.loadData();
             Config.getInstance().loadConfig("config.properties");
-            for(int i = 0; i<10;i++) {
+            System.out.println("Loading data...");
+            DataLoader.loadData();
+            System.out.println("Done");
+            for(int i = 0; i<5;i++) {
                 Crosser crosser = Config.getInstance().getCrosser();
                 Selector selectionSelector = Config.getInstance().getSelectionSelector();
                 Selector replacementSelector = Config.getInstance().getReplacementSelector();
@@ -30,9 +32,7 @@ public class Main {
                 Constants.MODIF[Constants.WISDOM] = Config.getInstance().getDouble("wisdom_m");
                 Constants.MODIF[Constants.RESISTANCE] = Config.getInstance().getDouble("resistance_m");
                 Constants.MODIF[Constants.LIFE] = Config.getInstance().getDouble("life_m");
-                System.out.println("Loading data...");
 
-                System.out.println("Done");
 
                 LineChart chart = null;
                 if (Config.getInstance().getBoolean("visual")) {
