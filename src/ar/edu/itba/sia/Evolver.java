@@ -73,12 +73,13 @@ public class Evolver {
             fl2 = new FileWriter("bestFitness.txt");
         }
         best = currentGeneration[0];
+        Phenotype[] newPop = new Phenotype[k];
         while(!condition.end(this)) { //COMO TERMINA?
             //ELIJO CANDIDATOS
             Phenotype[] selected = selectionSelector.selectPhenotypes(currentGeneration,k);
 
             //LOS CRUZO
-            Phenotype[] newPop = new Phenotype[k];
+
             for(int i = 0; i<k; i++){
                 Phenotype[] aux = cruze.crossover(selected[rand.nextInt(k)],selected[rand.nextInt(k)]);
                 newPop[i++] = mutator.mutate(aux[0]);

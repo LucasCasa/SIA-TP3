@@ -3,6 +3,7 @@ package selectors;
 import interfaces.Phenotype;
 import interfaces.Selector;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -18,9 +19,7 @@ public class Elite implements Selector {
             if(o1.getFitness()-o2.getFitness()<0) return 1;
             return 0;
         });
-        for(Phenotype p: population) {
-            q.add(p);
-        }
+        q.addAll(Arrays.asList(population));
         int counter = 0;
         while(!q.isEmpty()){
             if(counter==k)
