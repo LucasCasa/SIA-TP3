@@ -14,8 +14,9 @@ public class Main {
     public static void main(String[] args) {
 
         try {
+            DataLoader.loadData();
             Config.getInstance().loadConfig("config.properties");
-            //for(int i = 0; i<10;i++) {
+            for(int i = 0; i<10;i++) {
                 Crosser crosser = Config.getInstance().getCrosser();
                 Selector selectionSelector = Config.getInstance().getSelectionSelector();
                 Selector replacementSelector = Config.getInstance().getReplacementSelector();
@@ -30,7 +31,7 @@ public class Main {
                 Constants.MODIF[Constants.RESISTANCE] = Config.getInstance().getDouble("resistance_m");
                 Constants.MODIF[Constants.LIFE] = Config.getInstance().getDouble("life_m");
                 System.out.println("Loading data...");
-                DataLoader.loadData();
+
                 System.out.println("Done");
 
                 LineChart chart = null;
@@ -46,7 +47,7 @@ public class Main {
                 Evolver e = new Evolver(crosser, selectionSelector, replacementSelector, mutator, N, k, chart);
                 e.randomGeneration();
                 e.evolve(condition);
-            //}
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
