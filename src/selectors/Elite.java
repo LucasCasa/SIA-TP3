@@ -12,15 +12,22 @@ import java.util.PriorityQueue;
  * Created by nkuyumciyan on 23/05/17.
  */
 public class Elite implements Selector {
+    Phenotype[] selected;
+    PriorityQueue<Phenotype> q;
     @Override
     public Phenotype[] selectPhenotypes(Phenotype[] population, int k) {
-        Phenotype[] selected = new Phenotype[population.length];
-        PriorityQueue<Phenotype> q = new PriorityQueue<>((o1, o2) -> {
-            if(o1.getFitness()-o2.getFitness()>0) return -1;
-            if(o1.getFitness()-o2.getFitness()<0) return 1;
-            return 0;
-        });
-        q.addAll(Arrays.asList(population));
+        if(selected == null) {
+            selected = new Phenotype[population.length];
+            q = new PriorityQueue<>((o1, o2) -> {
+                if (o1.getFitness() - o2.getFitness() > 0) return -1;
+                if (o1.getFitness() - o2.getFitness() < 0) return 1;
+                return 0;
+            });
+        }
+        for(int i = 0; i<population.length;i++){
+            q.offer(population[i]);
+        }
+
         /*for(int i = 0; i<population.length;i++){
             selected[i] = population[i];
         }
@@ -32,8 +39,10 @@ public class Elite implements Selector {
         return Arrays.copyOf(selected,k);*/
         int counter = 0;
         while(!q.isEmpty()){
-            if(counter==k)
+            if(counter==k) {
+                q.clear();
                 return selected;
+            }
             selected[counter++] = q.poll();
         }
         return selected;

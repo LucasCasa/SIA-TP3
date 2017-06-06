@@ -1,6 +1,7 @@
 package crossers;
 
 import ar.edu.itba.sia.Constants;
+import characters.Character;
 import characters.CharacterBuilder;
 import interfaces.Crosser;
 import interfaces.Phenotype;
@@ -18,8 +19,8 @@ public class Uniform implements Crosser{
     public Phenotype[] crossover(Phenotype p1, Phenotype p2) {
         Phenotype[] children = new Phenotype[2];
         if(Math.random() > pc){
-            children[0] = p1;
-            children[1] = p2;
+            children[0] = CharacterBuilder.getInstance().build(p1.getChromosomes());
+            children[1] = CharacterBuilder.getInstance().build(p2.getChromosomes());
             return children;
         }
         children[0] = CharacterBuilder.getInstance().build();

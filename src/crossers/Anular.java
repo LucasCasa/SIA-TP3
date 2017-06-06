@@ -24,8 +24,8 @@ public class Anular implements Crosser {
         Phenotype[] children = new Phenotype[2];
 
         if(Math.random() > pc){
-            children[0] = p1;
-            children[1] = p2;
+            children[0] = CharacterBuilder.getInstance().build(p1.getChromosomes());
+            children[1] = CharacterBuilder.getInstance().build(p2.getChromosomes());
             return children;
         }
 

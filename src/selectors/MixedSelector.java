@@ -10,6 +10,7 @@ public class MixedSelector implements Selector {
     private Selector s1;
     private Selector s2;
     private double part;
+    Phenotype[] newPop;
 
     public MixedSelector(Selector s1, Selector s2, double part){
         this.s1 = s1;
@@ -18,7 +19,9 @@ public class MixedSelector implements Selector {
     }
     @Override
     public Phenotype[] selectPhenotypes(Phenotype[] population, int k) {
-        Phenotype[] newPop = new Phenotype[k];
+        if(newPop == null){
+            newPop = new Phenotype[k];
+        }
         int partS1 = (int) (k*part);
         int partS2 = k - partS1;
         Phenotype[] pop1 = s1.selectPhenotypes(population,partS1);
